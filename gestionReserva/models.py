@@ -3,10 +3,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-class Usuario(models.Model):
+class Cliente(models.Model):
     nombre = models.CharField(max_length=50, null=False)
-    apellido = models.CharField(max_length=50, null=False)
-    correo = models.EmailField(max_length=50, null=True, blank= True)
+    apellidoM = models.CharField(max_length=50, null=False)
+    apellidoP = models.CharField(max_length=50, null=False)
+    correo = models.EmailField(max_length=50, null=True, blank= True, unique = True)
     contrasenia = models.CharField(max_length=30, null=False)
     telefono = models.CharField(max_length=10, null=True, blank= True)
     direccion = models.CharField(max_length=90, null=False)
@@ -16,8 +17,9 @@ class Usuario(models.Model):
 
 class Familiar(models.Model):
     nombre = models.CharField(max_length=50, null=False)
-    apellido = models.CharField(max_length=50, null=False)
-    familia = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    apellidoM = models.CharField(max_length=50, null=False)
+    apellidoP = models.CharField(max_length=50, null=False)
+    familia = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     class Meta:
         managed = True
@@ -25,8 +27,9 @@ class Familiar(models.Model):
 
 class Comerciante(models.Model):
     nombre = models.CharField(max_length=50, null=False)
-    apellido = models.CharField(max_length=50, null=False)
-    correo = models.EmailField(max_length=50, null=True, blank= True)
+    apellidoM = models.CharField(max_length=50, null=False)
+    apellidoP = models.CharField(max_length=50, null=False)
+    correo = models.EmailField(max_length=50, null=True, blank= True, unique = True)
     contrasenia = models.CharField(max_length=30, null=False)
     telefono = models.CharField(max_length=10, null=True, blank= True)
     direccion = models.CharField(max_length=90, null=False)
@@ -46,14 +49,28 @@ class Producto(models.Model):
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
 
 
-
-
-
 class Reserva(models.Model):
-    numero = models.IntegerField()
-    fecha = models.DateField()
-    estado = models.BooleanField()
-    total =  models.IntegerField()
+    numeroOrden = models.IntegerField()
+    fechaInicio = models.DateField()
+    fechaTermino = models.DateField()
+    estado = models.IntegerField()
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    productos = models.ManyToManyField(Producto)
+
+    """
+        1 Solicitado
+        2 En Espera
+        3 Retirado
+        4 Cancelado Cliente
+        5 Cancelado Comerciante
+        6 Expirado
+
+    """
+
+    #Solicitado- En espera, Retirado - Cancelado Cliente Cancelado Comercian
+
+
+
 
 
 # class Reporte(models.Model):
