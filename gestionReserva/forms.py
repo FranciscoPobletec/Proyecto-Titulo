@@ -1,23 +1,12 @@
-from django import forms
-from .models import Usuario
 
+from django.contrib.auth.forms import UserCreationForm
 
-class LoginForm(forms.Form):
-    correo = forms.EmailField()
-    contraseña = forms.CharField(widget=forms.PasswordInput)
-    contraseña_preview = forms.CharField(required=False, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+class CustomUserCreationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = None  # Elimina el mensaje de ayuda para el nombre de usuario
 
-
-
-
-
-    
-
-
-class RegistroForm(forms.ModelForm):
-    correo = forms.EmailField()
-    contraseña = forms.CharField(widget=forms.PasswordInput)
-    
-    class Meta:
-        model = Usuario
-        fields = ['nombre', 'apellido', 'correo', 'contraseña']
+    class Meta(UserCreationForm.Meta):
+        error_messages = {
+            'password1': {},  # Elimina los mensajes de error predeterminados para la contraseña
+        }

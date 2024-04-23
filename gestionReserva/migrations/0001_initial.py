@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('nombre', models.CharField(max_length=30)),
                 ('apellido', models.CharField(max_length=30)),
                 ('correo', models.EmailField(max_length=254)),
-                ('contraseña', models.CharField(max_length=30)),
+                ('contraseña' , models.CharField(max_length=30)),
             ],
         ),
     ]
