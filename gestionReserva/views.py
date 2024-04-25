@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 import re
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -5,6 +6,10 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from .models import Comerciante
+from .forms import ComercianteForm
+from gestionReserva.forms import ComercianteForm
+from .models import Producto
 
 
 def loginview(request):
@@ -27,35 +32,48 @@ def loginview(request):
 
 
 def registroview(request):
-    if request.method == 'GET':
-        return render(request, 'registro.html', {'form': UserCreationForm()})
-    else:
-        password1 = request.POST["password1"]
-        password2 = request.POST["password2"]
-
-        if password1 != password2:
-            return render(request, "registro.html", {'form': UserCreationForm(), 'error': "Las contraseñas no coinciden"})
-        elif not (8 <= len(password1) <= 20):
-            return render(request, "registro.html", {'form': UserCreationForm(), 'error': "La contraseña debe tener entre 8 y 20 caracteres"})
-        else:
-            name = request.POST["username"]
-            if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', name):
-                return render(request, "registro.html", {'form': UserCreationForm(), 'error': "El nombre de usuario debe ser una dirección de correo válida"})
-            elif User.objects.filter(username=name).exists():
-                return render(request, "registro.html", {'form': UserCreationForm(), 'error': "El nombre de usuario ya está en uso"})
-            else:
-                user = User.objects.create_user(
-                    username=name, password=password1)
-                user.save()
-                # Iniciar sesión automáticamente después del registro
+    if request.method == 'POST':
+        form = ComercianteForm(request.POST)
+        if form.is_valid():
+            # Guardar el formulario si es válido
+            user = form.save(commit=False)
+            # Utilizar la contraseña ingresada en el formulario
+            password = form.cleaned_data.get('contrasenia')
+            # Asignar la contraseña al usuario
+            user.set_password(password)
+            # Guardar al usuario
+            user.save()
+            # Autenticar al usuario recién registrado
+            username = form.cleaned_data.get('correo').split('@')[0]  
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                # Iniciar sesión para el usuario autenticado
                 login(request, user)
-                messages.success(request, "¡Usuario registrado exitosamente!")
-                # Redireccionar a las obras destacadas
-                return redirect('login')
+                # Redirigir a la página de inicio después del registro exitoso
+                return redirect('index')
+            else:
+                error = "No se pudo autenticar al usuario."
+                return render(request, 'registro.html', {'form': form, 'error': error})
+    else:
+        # Si la solicitud no es POST, mostrar un formulario vacío para el registro
+        form = ComercianteForm()
+    return render(request, 'registro.html', {'form': form})
 
 
 def indexview(request):
     return render(request, 'index.html')
+
+
+def producto(request):
+    productos = Producto.objects.all()  # Obtener todos los productos
+
+    # Manejar la búsqueda si se envió un query en el formulario
+    query = request.GET.get('q')
+    if query:
+        # Filtrar los productos por nombre
+        productos = productos.filter(nombre__icontains=query)
+
+    return render(request, 'Producto.html', {'productos': productos})
 
 
 def salir(request):

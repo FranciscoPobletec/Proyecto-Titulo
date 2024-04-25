@@ -23,33 +23,95 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="id_username">Nombre de usuario:</label>
-                    <input type="text" name="username" id="id_username" class="form-control" maxlength="150" pattern="[A-Za-z0-9@/./+/-/_]+" required>
+                    <label for="id_nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="id_nombre" class="form-control" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_apellidoP">Apellido paterno:</label>
+                    <input type="text" name="apellidoP" id="id_apellidoP" class="form-control" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_apellidoM">Apellido materno:</label>
+                    <input type="text" name="apellidoM" id="id_apellidoM" class="form-control" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="id_username">Correo electrónico (Username):</label>
+                    <input type="email" name="correo" id="id_correo" class="form-control" maxlength="50" required>
                 </div>
                 <div class="form-group">
                     <label for="id_password1">Contraseña:</label>
-                    <input type="password" name="password1" id="id_password1" class="form-control" required>
+                    <input type="password" name="contrasenia" id="id_password1" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="id_password2">Contraseña (confirmación):</label>
                     <input type="password" name="password2" id="id_password2" class="form-control" required>
                 </div>
+                <div class="form-group">
+                    <label for="id_telefono">Teléfono:</label>
+                    <input type="text" name="telefono" id="id_telefono" class="form-control" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="id_direccion">Dirección:</label>
+                    <input type="text" name="direccion" id="id_direccion" class="form-control" maxlength="90" required>
+                </div>
+                <!-- Fin de campos para el modelo Comerciante -->
+                
                 <br>
                 <button type="submit" class="btn btn-primary">Registrarse</button>
                 <button type="button" class="btn btn-secondary" id="cancelButton">Cancelar</button>
             </form>
+        </div>
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
     </div>
-    {% if error %}
-    <div class="alert alert-danger" role="alert">
-    {{ error }}
 </div>
-{% endif %}
+
+<!-- Modal para el registro de local -->
+<div class="modal" id="localModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registro de Local</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para el registro de local -->
+                <form id="localForm">
+                    <!-- Campos del formulario de local -->
+                    <div class="form-group">
+                        <label for="id_nombre_local">Nombre del local:</label>
+                        <input type="text" name="nombre_local" id="id_nombre_local" class="form-control" required>
+                    </div>
+                    <!-- Otros campos del formulario de local -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="guardarLocal">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     document.getElementById("cancelButton").addEventListener("click", function() {
         window.location.href = "{% url 'login' %}";
     });
-    </script>
+
+    // Función para mostrar el modal de registro de local
+    function mostrarModalLocal() {
+        var localModal = new bootstrap.Modal(document.getElementById('localModal'));
+        localModal.show();
+    }
+
+    // Agrega un evento de escucha al botón de registro exitoso
+    document.getElementById("registroExitoso").addEventListener("click", function() {
+        mostrarModalLocal();
+    });
+</script>
+
 </body>
 </html>

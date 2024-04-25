@@ -16,10 +16,10 @@
 </head>
 <body>
 
-<div class="outer-box">
-    <div class="inner-box">
-        <img src="{% static 'images/hay_pan.png' %}" style="max-width: 200px;">
-        <div class="form-box">
+    <div class="outer-box">
+        <div class="inner-box">
+            <img src="{% static 'images/hay_pan.png' %}" style="max-width: 200px;">
+            <div class="form-box">
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

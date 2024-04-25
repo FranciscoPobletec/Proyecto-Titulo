@@ -1,0 +1,57 @@
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>Productos</h1>
+      </div>
+      <div class="col-md-6 text-end">
+        <a href="" class="btn btn-primary">Agregar Producto</a>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <form action="" method="GET">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar producto" name="q" />
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+          </div>
+        </form>
+        <form class="d-flex" role="search" action="">
+            <input class="form-control me-2" type="search" placeholder="" aria-label="Search" name="query">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for producto in productos %}
+              <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>
+                  <a href="" class="btn btn-sm btn-info">Editar</a>
+                  <a href="" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
