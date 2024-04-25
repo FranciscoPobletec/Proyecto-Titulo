@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
 # Create your models here.
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50, null=False)
@@ -11,7 +10,6 @@ class Cliente(models.Model):
     contrasenia = models.CharField(max_length=30, null=False)
     telefono = models.CharField(max_length=10, null=True, blank= True)
     direccion = models.CharField(max_length=90, null=False)
-
     class Meta:
         managed = True
 
@@ -25,19 +23,21 @@ class Familiar(models.Model):
         managed = True
 
 
-class Comerciante(models.Model):
+class Comerciante(AbstractUser):
     nombre = models.CharField(max_length=50, null=False)
-    apellidoM = models.CharField(max_length=50, null=False)
     apellidoP = models.CharField(max_length=50, null=False)
-    correo = models.EmailField(max_length=50, null=True, blank= True, unique = True)
+    apellidoM = models.CharField(max_length=50, null=False)
     contrasenia = models.CharField(max_length=30, null=False)
-    telefono = models.CharField(max_length=10, null=True, blank= True)
+    correo = models.EmailField(max_length=50, null=True, blank=True, unique=True)
+    telefono = models.CharField(max_length=10, null=True, blank=True)
     direccion = models.CharField(max_length=90, null=False)
+
+    
 
 class Local(models.Model):
     nombre = models.CharField(max_length=50, null=False)
     direccion = models.CharField(max_length=90, null=False)
-    duenio = models.ForeignKey(Comerciante, on_delete=models.CASCADE)
+    duenio = models.ForeignKey(Comerciante, on_delete=models.CASCADE, default=1)
 
 
 class Producto(models.Model):
@@ -46,17 +46,24 @@ class Producto(models.Model):
     cantidad = models.IntegerField(default =0)
     precio= models.IntegerField(default =0)
     imagen = models.ImageField(upload_to="Producto", null=True)
-    local = models.ForeignKey(Local, on_delete=models.CASCADE)
+    local = models.ForeignKey(Local, on_delete=models.CASCADE, default=1)
 
 
 class Reserva(models.Model):
     numeroOrden = models.IntegerField()
     fechaInicio = models.DateField()
     fechaTermino = models.DateField()
-    estado = models.IntegerField()
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, default=1)
     productos = models.ManyToManyField(Producto)
-
+    tipo_choices = [
+            ('1', 'Solicitado'),
+            ('2', 'En Espera'),
+            ('3', 'Otras'),
+            ('4', 'Retirado'),
+            ('5', 'Cancelado Cliente'),
+            ('6', 'Cancelado Comerciante'),            
+        ]
+    estado = models.CharField(max_length=10, choices=tipo_choices, default='Otras')
     """
         1 Solicitado
         2 En Espera

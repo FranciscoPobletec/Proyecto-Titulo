@@ -1,0 +1,107 @@
+/* Asegurar que los elementos internos estén alineados verticalmente y centrados */
+.outer-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajustar al tamaño deseado */
+}
+
+/* Estilos del contenedor interno */
+.inner-box {
+    width: 400px; /* Ajustar al tamaño deseado */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos del formulario */
+.form-box {
+    margin-top: 20px;
+    background-color: #f9f9f9; /* Color de fondo del formulario */
+    padding: 30px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    max-width: 400px; /* Ancho máximo del formulario */
+    width: 100%; /* Ancho completo */
+}
+
+/* Ajustar el tamaño de los cuadros de texto y hacer que estén alineados */
+.form-group {
+    margin-bottom: 20px; /* Espacio entre cada campo */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px; /* Espacio inferior del label */
+}
+
+.form-group input {
+    width: 100%; /* Ancho completo */
+}
+
+/* Estilos para los botones */
+button[type="submit"],
+button[type="button"] {
+    width: calc(50% - 10px); /* Ancho del 50% con un pequeño espacio */
+    margin-right: 10px; /* Espacio entre los botones */
+}
+
+button[type="submit"] {
+    background-color: #007bff; /* Color de fondo del botón de enviar */
+    color: #fff; /* Color del texto */
+}
+
+button[type="button"] {
+    background-color: #6c757d; /* Color de fondo del botón de cancelar */
+    color: #fff; /* Color del texto */
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    opacity: 0.8; /* Opacidad al pasar el ratón por encima */
+}
+
+
+
+
+
+.navbar-logo {
+    width:200px; /* Ancho de la imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+}
+
+/* Estilos para el navbar */
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+.nav-link {
+    margin-bottom: 10px; 
+}
+
+.nav-link-box {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background: linear-gradient(to top, transparent, #184d50); 
+}
+
+/* Estilos para el navbar */
+.navbar {
+    position: relative; 
+}
+
+/* Estilos para las cajas de los enlaces */
+.nav-link-box {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background: linear-gradient(to top, transparent, #184d50); 
+}
