@@ -3,7 +3,7 @@ import re
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Comerciante
@@ -79,3 +79,11 @@ def producto(request):
 def salir(request):
     logout(request)
     return redirect("login")
+
+
+def eliminar(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    print("ID del producto a eliminar:", id)  # Imprime el ID del producto en la consola
+    producto.delete()
+    messages.success(request, "Eliminado correctamente")
+    return redirect('producto')
