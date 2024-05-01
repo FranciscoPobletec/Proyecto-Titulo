@@ -1,28 +1,42 @@
 {% extends 'cliente/base.html' %}
 {% load static %}
 <script>
-  function eliminarProducto(id){
-      swal.fire({
-          "title": "¿Estás seguro?",
-          "text": "Esta acción no se puede deshacer",
-          "icon": "question",
-          "showCancelButton": true,
-          "cancelButtonText": "No, Cancelar",
-          "confirmButtonText": "Sí, Eliminar"
-      })
-      .then(function(result) {
-          if(result.isConfirmed) {
-              window.location.href = "/eliminar/" + id + "/"
-          }
-      })
-  }
+  function eliminar(id) {
+    swal.fire({
+        "title": "¿Estás seguro?",
+        "text": "Esta acción no se puede deshacer",
+        "icon": "question",
+        "showCancelButton": true,
+        "cancelButtonText": "No, Cancelar",
+        "confirmButtonText": "Sí, Eliminar"
+    })
+    .then(function(result) {
+        if(result.isConfirmed) {
+            $.ajax({
+                url: '/eliminar/' + id + '/',
+                method: 'POST',
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success: function(response) {
+                    // Maneja la respuesta si es necesario
+                    // Por ejemplo, puedes recargar la página
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Maneja errores si es necesario
+                }
+            });
+        }
+    });
+}
+
 </script>
 {% block content %}
   <h1>Productos</h1>
   <div class="container">
     <div class="row">
       <div class="col-md-3 text-end">
-        <a href="" class="btn btn-primary">Agregar Producto</a>
+        <a href="{% url 'registroProducto' %}" class="btn btn-primary">Agregar Producto</a>
+
       </div>
     </div>
   </div>
@@ -63,8 +77,10 @@
                     <td>{{ producto.cantidad }}</td>
                     <td>{{ producto.precio }}</td>
                     <td>
-                      <a href="" class="btn btn-sm btn-info">Editar</a>
-                      <a href="#" onclick="eliminar({{ producto.id }})" class="btn btn-info btn-sm" id="eliminar-{{ producto.id }}">Eliminar</a>
+                      <a href="{% url 'editarProducto' producto.id %}"class="btn btn-info btn-sm">Editar</a>
+                      <a href="#" onclick="eliminar('{{ producto.id }}')" class="btn btn-info btn-sm" id="eliminar-{{ producto.id }}">Eliminar</a>
+
+
                   </tr>
                 {% endfor %}
               </tbody>

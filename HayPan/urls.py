@@ -27,6 +27,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('gestionReserva.urls')),
     path('producto/', views.producto, name='producto'),
+    path('eliminarProducto/<pk>/', views.eliminarProducto.as_view(), name='eliminarProducto'),
+    path('local/', views.local, name='local'),
+    path('registroProducto/', views.registroProducto, name='registroProducto'),
+    path('editarProducto/<int:producto_id>/',views.editarProducto, name='editarProducto')
 ]
 
 if settings.DEBUG:

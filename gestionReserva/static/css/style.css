@@ -63,8 +63,9 @@ button[type="button"]:hover {
 }
 
 
-
-
+h1 {
+    text-align: center;
+}
 
 .navbar-logo {
     width:200px; /* Ancho de la imagen */
@@ -105,3 +106,14 @@ button[type="button"]:hover {
     border-radius: 5px;
     background: linear-gradient(to top, transparent, #184d50); 
 }
+
+
+
+.table-wrapper {
+    max-height: 300px; /* Altura máxima de la tabla */
+    overflow-y: scroll; /* Añadir barra de desplazamiento vertical */
+  }
+
+
+
+  

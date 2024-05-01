@@ -1,0 +1,29 @@
+{% extends 'cliente/base.html' %}
+{% block content %}
+    <h2>Editar Producto</h2>
+    <div class="outer-box">
+    <div class="inner-box">
+        <div class="form-box">
+        <form action="{% url 'editarProducto' producto.id %}" method="POST">
+            {% csrf_token %}
+            <label for="nombre">Nombre:</label><br />
+            <input type="text" id="nombre" name="nombre" value="{{ producto.nombre }}" readonly /><br /><br />
+
+            <label for="precio">Precio:</label><br />
+            <input type="number" id="precio" name="precio" value="{{ producto.precio }}" required /><br /><br />
+
+            <label for="descripcion">Descripción:</label><br />
+            <textarea id="descripcion" name="descripcion" rows="4" cols="30" required>{{ producto.descripcion }}</textarea><br /><br />
+
+            <label for="cantidad">Cantidad:</label><br />
+            <input type="number" id="cantidad" name="cantidad" value="{{ producto.cantidad }}" required /><br /><br />
+
+            <label for="local">codigo de Local:</label><br />
+            <input type="text" id="local" name="local" value="{{ producto.local.id }}" readonly /><br /><br />
+
+            <button type="submit">Guardar Cambios</button>
+            </form>
+        </div>
+        </div>
+    </div>
+{% endblock %}

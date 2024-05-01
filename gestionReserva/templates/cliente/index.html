@@ -1,5 +1,29 @@
 {% extends 'cliente/base.html' %}
-
+{% load static %}
 {% block content %}
+    {% if alerta %}
+    <div class="alert alert-danger" role="alert">
+        ¡Bienvenido! Parece que aún no has registrado tu local. Por favor, regístralo 
+        <a href="{% url 'local' %}" class="alert-link">aquí</a> para empezar a utilizar nuestra plataforma.
+    </div>
+    {% endif %}
 
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="card-img-top" style="height: 200px;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <p class="card-text">Precio: {{ producto.precio }}</p>
+                    <p class="card-text">Cantidad: {{ producto.cantidad }}</p>
+                    <p class="card-text">Local: {{ producto.local }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

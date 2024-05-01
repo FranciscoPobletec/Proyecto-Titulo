@@ -69,13 +69,48 @@
     </div>
 </div>
 
-
+<!-- Modal para el registro de local -->
+<div class="modal" id="localModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registro de Local</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para el registro de local -->
+                <form id="localForm">
+                    <!-- Campos del formulario de local -->
+                    <div class="form-group">
+                        <label for="id_nombre_local">Nombre del local:</label>
+                        <input type="text" name="nombre_local" id="id_nombre_local" class="form-control" required>
+                    </div>
+                    <!-- Otros campos del formulario de local -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="guardarLocal">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     document.getElementById("cancelButton").addEventListener("click", function() {
         window.location.href = "{% url 'login' %}";
     });
 
+    // Función para mostrar el modal de registro de local
+    function mostrarModalLocal() {
+        var localModal = new bootstrap.Modal(document.getElementById('localModal'));
+        localModal.show();
+    }
+
+    // Agrega un evento de escucha al botón de registro exitoso
+    document.getElementById("registroExitoso").addEventListener("click", function() {
+        mostrarModalLocal();
+    });
 </script>
 
 </body>

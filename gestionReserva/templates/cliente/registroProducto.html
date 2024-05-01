@@ -1,0 +1,69 @@
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Agregar Producto</h2>
+  <div class="outer-box">
+    <div class="inner-box">
+      <div class="form-box">
+        <form action="{% url 'registroProducto' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="nombre">Nombre:</label><br />
+          <input type="text" id="nombre" name="nombre" required /><br /><br />
+
+          <label for="precio">Precio:</label><br />
+          <input type="number" id="precio" name="precio" required /><br /><br />
+
+          <label for="descripcion">Descripción:</label><br />
+          <textarea id="descripcion" name="descripcion" rows="4" cols="30" required></textarea><br /><br />
+
+          <label for="cantidad">Cantidad:</label><br />
+          <input type="number" id="cantidad" name="cantidad" required /><br /><br />
+
+          <label for="imagen">Imagen:</label><br />
+          <input type="file" id="imagen" name="imagen" accept="image/*" required /><br /><br />
+
+          <label for="local">Local:</label><br />
+          <select id="local" name="local" required>
+            <option value="" disabled selected>Seleccione un local</option>
+            {% for local in locales %}
+              <option value="{{ local.id }}">{{ local.nombre }}</option> <!-- Acceder al campo nombre -->
+            {% endfor %}
+          </select><br /><br />
+
+          <button type="submit">Guardar</button>
+        </form>
+      </div>
+      {% if error %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="table-wrapper">
+    <div class="table-box">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Local</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for producto in productos|slice:"0:5" %}  <!-- Limitar a los últimos 5 productos -->
+            <tr>
+              <td>{{ producto.nombre }}</td>
+              <td>{{ producto.precio }}</td>
+              <td>{{ producto.descripcion }}</td>
+              <td>{{ producto.cantidad }}</td>
+              <td>{{ producto.local.nombre }}</td> 
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+{% endblock %}

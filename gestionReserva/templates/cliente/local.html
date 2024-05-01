@@ -1,0 +1,27 @@
+
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="outer-box">
+    <div class="inner-box">
+      <img src="{% static 'images/hay_pan.png' %}" style="max-width: 200px;" />
+      <div class="form-box">
+        <form method="post">
+          {% csrf_token %}
+          <label for="nombre">Nombre del Local:</label><br />
+          <input type="text" id="nombre" name="nombre" required /><br /><br />
+
+          <label for="direccion">Dirección Del Local:</label><br />
+          <input type="text" id="direccion" name="direccion" required /><br /><br />
+
+          <input type="hidden" id="duenio" name="duenio" value="{{ request.user.id }}" />
+
+          <button type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>
+    {% if error %}
+      <div div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+  </div>
+{% endblock %}
