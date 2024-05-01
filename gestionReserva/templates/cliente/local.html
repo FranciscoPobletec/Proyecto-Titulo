@@ -17,6 +17,7 @@
           <input type="hidden" id="duenio" name="duenio" value="{{ request.user.id }}" />
 
           <button type="submit">Guardar</button>
+          <button type="submit" class="btn btn-danger " id="cancelButton">Cancelar</button>
         </form>
       </div>
     </div>
@@ -24,4 +25,5 @@
       <div div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
   </div>
+  <script src="{% static 'js/javaScript.js' %}"></script>
 {% endblock %}

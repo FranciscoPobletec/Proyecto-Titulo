@@ -17,6 +17,9 @@ class Cliente(models.Model):
     class Meta:
         managed = True
 
+    def __str__(self):
+        return self.nombre
+
 
 class Familiar(models.Model):
     nombre = models.CharField(max_length=50, null=False)
@@ -48,6 +51,7 @@ class Local(models.Model):
     def __str__(self):
         return self.nombre
 
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=50, null=False)
     descripcion = models.CharField(max_length=250, null=True, blank=True)
@@ -76,6 +80,13 @@ class Reserva(models.Model):
     ]
     estado = models.CharField(
         max_length=10, choices=tipo_choices, default='Solicitado')
+
+    def __str__(self):
+        return f"Reserva #{self.numeroOrden}"
+
+    def calcular_total(self):
+        total = sum(producto.precio * producto.cantidad for producto in self.productos.all())
+        return total
     """
         1 Solicitado
         2 En Espera

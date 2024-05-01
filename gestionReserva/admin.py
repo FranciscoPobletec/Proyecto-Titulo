@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 
-from gestionReserva.models import Comerciante, Local, Producto
+from gestionReserva.models import Cliente, Comerciante, Local, Producto, Reserva
 
 
 class LocalAdmin(admin.ModelAdmin):
@@ -37,8 +37,22 @@ class ProductoAdmin(admin.ModelAdmin):
     list_per_page = 5
 
 
+class ReservaAdmin(admin.ModelAdmin):
+    list_display = ["numeroOrden", "fechaInicio", "fechaTermino", "cliente", "cantidad_productos", "estado"]
+    
+
+class ClienteAdmin(admin.ModelAdmin):
+    list_display = ["nombre", "apellidoP", "apellidoM",
+                    "correo", "telefono", "direccion"]
+    
+
+
 admin.site.register(Comerciante)
 
 admin.site.register(Local)
 
 admin.site.register(Producto)
+
+admin.site.register(Reserva)
+
+admin.site.register(Cliente)

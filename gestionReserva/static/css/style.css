@@ -3,12 +3,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ajustar al tamaño deseado */
+    height: 100vh;
+    /* Ajustar al tamaño deseado */
 }
 
 /* Estilos del contenedor interno */
 .inner-box {
-    width: 400px; /* Ajustar al tamaño deseado */
+    width: 400px;
+    /* Ajustar al tamaño deseado */
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -18,48 +20,64 @@
 /* Estilos del formulario */
 .form-box {
     margin-top: 20px;
-    background-color: #f9f9f9; /* Color de fondo del formulario */
-    padding: 30px; /* Espaciado interno */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    max-width: 400px; /* Ancho máximo del formulario */
-    width: 100%; /* Ancho completo */
+    background-color: #f9f9f9;
+    /* Color de fondo del formulario */
+    padding: 30px;
+    /* Espaciado interno */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Sombra */
+    max-width: 400px;
+    /* Ancho máximo del formulario */
+    width: 100%;
+    /* Ancho completo */
 }
 
 /* Ajustar el tamaño de los cuadros de texto y hacer que estén alineados */
 .form-group {
-    margin-bottom: 20px; /* Espacio entre cada campo */
+    margin-bottom: 20px;
+    /* Espacio entre cada campo */
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px; /* Espacio inferior del label */
+    margin-bottom: 5px;
+    /* Espacio inferior del label */
 }
 
 .form-group input {
-    width: 100%; /* Ancho completo */
+    width: 100%;
+    /* Ancho completo */
 }
 
 /* Estilos para los botones */
 button[type="submit"],
 button[type="button"] {
-    width: calc(50% - 10px); /* Ancho del 50% con un pequeño espacio */
-    margin-right: 10px; /* Espacio entre los botones */
+    width: calc(50% - 10px);
+    /* Ancho del 50% con un pequeño espacio */
+    margin-right: 10px;
+    /* Espacio entre los botones */
 }
 
 button[type="submit"] {
-    background-color: #007bff; /* Color de fondo del botón de enviar */
-    color: #fff; /* Color del texto */
+    background-color: #007bff;
+    /* Color de fondo del botón de enviar */
+    color: #fff;
+    /* Color del texto */
 }
 
 button[type="button"] {
-    background-color: #6c757d; /* Color de fondo del botón de cancelar */
-    color: #fff; /* Color del texto */
+    background-color: #6c757d;
+    /* Color de fondo del botón de cancelar */
+    color: #fff;
+    /* Color del texto */
 }
 
 button[type="submit"]:hover,
 button[type="button"]:hover {
-    opacity: 0.8; /* Opacidad al pasar el ratón por encima */
+    opacity: 0.8;
+    /* Opacidad al pasar el ratón por encima */
 }
 
 
@@ -68,8 +86,10 @@ h1 {
 }
 
 .navbar-logo {
-    width:200px; /* Ancho de la imagen */
-    height: auto; /* Altura automática para mantener la proporción */
+    width: 200px;
+    /* Ancho de la imagen */
+    height: auto;
+    /* Altura automática para mantener la proporción */
 }
 
 /* Estilos para el navbar */
@@ -83,37 +103,70 @@ h1 {
 }
 
 .nav-link {
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 .nav-link-box {
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 5px;
-    background: linear-gradient(to top, transparent, #184d50); 
+    background: linear-gradient(to top, transparent, #184d50);
 }
 
 /* Estilos para el navbar */
 .navbar {
-    position: relative; 
+    position: relative;
 }
 
 /* Estilos para las cajas de los enlaces */
 .nav-link-box {
-    width: 100%; 
+    width: 100%;
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 5px;
-    background: linear-gradient(to top, transparent, #184d50); 
+    background: linear-gradient(to top, transparent, #184d50);
 }
 
 
 
 .table-wrapper {
-    max-height: 300px; /* Altura máxima de la tabla */
-    overflow-y: scroll; /* Añadir barra de desplazamiento vertical */
-  }
+    max-height: 300px;
+    /* Altura máxima de la tabla */
+    overflow-y: scroll;
+    /* Añadir barra de desplazamiento vertical */
+}
 
 
+.calendar-container {
+    width: 500px;
+    /* Ancho del contenedor */
+    height: 500px;
+    /* Altura del contenedor */
+    margin: 0 auto;
+    /* Centrar horizontalmente */
+    text-align: center;
+    /* Centrar contenido dentro del contenedor */
+}
 
-  
+/* Estilos para el calendario */
+#calendar {
+    width: 100%;
+    /* Ocupa todo el ancho del contenedor */
+    height: 100%;
+    /* Ocupa todo el alto del contenedor */
+    font-size: 12px;
+    /* Tamaño de fuente del calendario */
+}
+
+/* Estilos para la marca roja */
+.current-day-marker {
+    background-color: red;
+    border-radius: 50%;
+    /* Para que la marca sea un círculo */
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

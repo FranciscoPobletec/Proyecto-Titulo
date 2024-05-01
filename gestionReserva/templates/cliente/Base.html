@@ -37,16 +37,16 @@
               <a class="nav-link" href="{% url 'producto' %}">Productos</a>
             </div>
             <div class="nav-link-box">
-              <a class="nav-link" href="#">Historial Reserva</a>
+              <a class="nav-link" href="{% url 'historialReserva' %}">Historial Reserva</a>
             </div>
             <div class="nav-link-box">
               <a class="nav-link" href="#">Informe</a>
             </div>
             <div class="nav-link-box">
-              <a class="nav-link" href="#">Calendario</a>
+              <a class="nav-link" href="{% url 'calendario' %}">Calendario</a>
             </div>
             <div class="nav-link-box">
-              <a class="nav-link" href="#">Clientes</a>
+              <a class="nav-link" href="{% url 'rankingCliente' %}">Clientes</a>
             </div>
             <div class="nav-link-box">
               <a class="nav-link" href="#"></a>.
@@ -76,5 +76,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{% static 'js/javaScript.js' %}"></script>
   </body>
 </html>

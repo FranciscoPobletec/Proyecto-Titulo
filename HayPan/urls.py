@@ -27,10 +27,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('gestionReserva.urls')),
     path('producto/', views.producto, name='producto'),
-    path('eliminarProducto/<pk>/', views.eliminarProducto.as_view(), name='eliminarProducto'),
+    path('eliminarProducto/<int:producto_id>/', views.eliminarProducto, name='eliminar_producto'),
     path('local/', views.local, name='local'),
     path('registroProducto/', views.registroProducto, name='registroProducto'),
-    path('editarProducto/<int:producto_id>/',views.editarProducto, name='editarProducto')
+    path('editarProducto/<int:producto_id>/',views.editarProducto, name='editarProducto'),
+    path('calendario/', views.calendario, name='calendario'),
+    path('reserva/<int:numero_orden>/', views.reserva, name='reserva'),
+    path('historialReserva/', views.historialReserva, name='historialReserva'),
+    path('rankingCliente/', views.rankingCliente, name='rankingCliente'),
+    
 ]
 
 if settings.DEBUG:

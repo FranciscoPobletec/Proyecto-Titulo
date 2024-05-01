@@ -1,0 +1,50 @@
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <h2>Ranking de Clientes</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Solicitado</th>
+          <th>En Espera</th>
+          <th>Retirado</th>
+          <th>Cancelado Cliente</th>
+          <th>Cancelado Comerciante</th>
+          <th>Expirado</th>
+          <th>Puntos</th>
+          <th>N° Estrella</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente, puntaje, contador_estados in ranking %}
+          <tr>
+            <td>{{ contador_estados.1 }}</td>
+            <td>{{ contador_estados.2 }}</td>
+            <td>{{ contador_estados.3 }}</td>
+            <td>{{ contador_estados.4 }}</td>
+            <td>{{ contador_estados.5 }}</td>
+            <td>{{ contador_estados.6 }}</td>
+            <td>{{ puntaje }}</td>
+            <td><span id="estrellas{{ forloop.counter }}">{{ puntaje }}</span></td>
+          </tr>
+          <script>
+            var puntaje = {{ puntaje }};
+            document.getElementById("estrellas{{ forloop.counter }}").innerHTML = generarEstrellas(puntaje);
+            function generarEstrellas(puntaje) {
+                var estrellas = '';
+                for (var i = 0; i < 5; i++) {
+                    if (puntaje >= (i + 1) * 20) {
+                        estrellas += '&#9733;'; // Código HTML de una estrella
+                    } else {
+                        estrellas += '&#9734;'; // Código HTML de una estrella vacía
+                    }
+                }
+                return estrellas;
+            }
+          </script>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

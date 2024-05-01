@@ -1,0 +1,107 @@
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  /* Estilos para el contenedor del calendario */
+  .calendar-container {
+    width: 500px; /* Ancho del contenedor */
+    height: 500px; /* Altura del contenedor */
+    margin: 0 auto; /* Centrar horizontalmente */
+    text-align: center; /* Centrar contenido dentro del contenedor */
+  }
+
+  /* Estilos para el calendario */
+  #calendar {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa todo el alto del contenedor */
+    font-size: 12px; /* Tamaño de fuente del calendario */
+  }
+
+  /* Estilos para la marca roja */
+  .current-day-marker {
+    background-color: red;
+    border-radius: 50%; /* Para que la marca sea un círculo */
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/locales/es.js'></script> <!-- Agregar el script para el idioma español -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'es', // Configurar el idioma a español
+      dayRender: function(info) {
+        var today = new Date().toISOString().slice(0,10);
+        if (info.date.toISOString().slice(0,10) === today) {
+          var marker = document.createElement('div');
+          marker.className = 'current-day-marker';
+          info.el.appendChild(marker);
+        }
+      },
+      // Agregar un evento de clic en el día del calendario
+      dateClick: function(info) {
+        var fechaSeleccionada = info.dateStr;
+        $.ajax({
+          url: '/reservas/',
+          method: 'GET',
+          data: {
+            fecha_seleccionada: fechaSeleccionada
+          },
+          success: function(data) {
+            // Actualizar la tabla de reservas con los datos recibidos
+            $('#reservas-container').html(data);
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            console.error('Error al obtener las reservas:', textStatus);
+          }
+        });
+      }
+    });
+    calendar.render();
+  });
+</script>
+<h1>Calendario</h1>
+<div class="box calendar-container">
+  <div id="calendar"></div>
+</div>
+
+
+  <h2>Reservas</h2>
+  <table class="reservas-table">
+    <thead>
+      <tr>
+        <th>Número de Orden</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Término</th>
+        <th>Cliente</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reserva in reservas %}
+      <tr>
+        <td>{{ reserva.numeroOrden }}</td>
+        <td>{{ reserva.fechaInicio }}</td>
+        <td>{{ reserva.fechaTermino }}</td>
+        <td>{{ reserva.cliente }}</td>
+        <td>{{ reserva.get_estado_display }}</td>  
+        <td>
+          <a href="{% url 'reserva' numero_orden=reserva.numeroOrden %}">Ver reserva</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

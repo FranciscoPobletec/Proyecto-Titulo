@@ -1,0 +1,27 @@
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Historial de Reserva</h1>
+<div class="box" style="max-height: 400px; overflow-y: auto;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre Completo</th>
+                <th>Correo</th>
+                <th>Número de reservas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.nombre }} {{ cliente.apellidoP }} {{ cliente.apellidoM }}</td>
+                <td>{{ cliente.correo }}</td>
+                <td>{{ cliente.numero_reservas }}</td>
+                <td><a href="{% url 'historialCliente' %}">Ver reservas</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

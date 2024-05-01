@@ -1,0 +1,28 @@
+{% extends 'cliente/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Detalles de la Reserva #{{ reserva.numeroOrden }}</h2>
+          <p class="card-text">Fecha de Reserva: {{ reserva.fechaInicio }}</p>
+          <p class="card-text">Fecha de Término: {{ reserva.fechaTermino }}</p>
+          <p class="card-text">Cliente: {{ reserva.cliente.nombre }}</p>
+          <p class="card-text">Estado: {{ reserva.get_estado_display }}</p>
+
+          <h3>Productos Reservados:</h3>
+          <ul class="list-group">
+            {% for producto in reserva.productos.all %}
+            <li class="list-group-item">{{ producto.nombre }} - Cantidad: {{ producto.cantidad }} - Precio Unitario: {{ producto.precio }}</li>
+            {% endfor %}
+          </ul>
+
+          <p class="card-text">Total de la Reserva: {{ reserva.calcular_total }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
