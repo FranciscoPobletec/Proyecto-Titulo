@@ -4,6 +4,7 @@ from .views import registroProducto, eliminarProducto, indexview, loginview, reg
 
 urlpatterns = [
     path('', loginview, name='login'),  # Cambia 'login' a 'Login' aquí
+    path('login/', loginview, name='Login'),
     path('registro/', registroview, name='registro'), 
     path('index/', indexview, name='index'), 
     path('salir/', salir, name='salir'),

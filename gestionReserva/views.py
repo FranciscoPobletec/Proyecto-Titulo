@@ -1,6 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from django.http import HttpResponse
-import re
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -13,25 +12,22 @@ from .models import Producto
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
-
 def loginview(request):
     if request.method == 'GET':
         return render(request, 'login.html', {'form': AuthenticationForm()})
     else:
-        name = request.POST["username"]
-        password = request.POST["password"]
-
+        name = request.POST.get("username")
+        password = request.POST.get("password")
         if not name or not password:
-            return render(request, 'login.html', {'form': AuthenticationForm(), 'error': 'Por favor, completa todos los campos.'})
-
+            messages.error(request, 'Por favor, completa todos los campos.')
+            return render(request, 'login.html', {'form': AuthenticationForm()})
         user = authenticate(username=name, password=password)
         if user is None:
-            return render(request, 'login.html', {'form': AuthenticationForm(), 'error': 'Usuario y/o contraseña incorrectos.'})
+            messages.error(request, 'Usuario y/o contraseña incorrectos.')
+            return render(request, 'login.html', {'form': AuthenticationForm()})
         else:
             login(request, user)
-            messages.success(request, '¡Inicio de sesión exitoso!')
             return redirect('index')
-
 
 def registroview(request):
     if request.method == 'POST':
@@ -207,9 +203,6 @@ def editarProducto(request, producto_id):
     return render(request, 'editarProducto.html', {'form': form, 'producto': producto})
 
 
-
-
-
 def calendario(request):
     today = datetime.today()
     reservas = Reserva.objects.all()  # Obtener todas las reservas
@@ -218,7 +211,6 @@ def calendario(request):
         'reservas': reservas  # Pasar las reservas a la plantilla
     }
     return render(request, 'calendario.html', context)
-
 
 
 def reserva(request, numero_orden):
@@ -236,13 +228,13 @@ def historialReserva(request):
 
     # Calcular el número de reservas para cada cliente
     for cliente in clientes:
-        cliente.numero_reservas = Reserva.objects.filter(cliente=cliente).count()
+        cliente.numero_reservas = Reserva.objects.filter(
+            cliente=cliente).count()
 
     context = {
         'clientes': clientes
     }
     return render(request, 'historialReserva.html', context)
-
 
 
 def historialCliente(request):
@@ -280,15 +272,13 @@ def calcular_puntaje_cliente(cliente):
     return puntaje, contador_estados
 
 
-
-
 def rankingCliente(request):
     clientes = Cliente.objects.all()
     ranking = []
     for cliente in clientes:
         puntaje, contador_estados = calcular_puntaje_cliente(cliente)
         ranking.append((cliente, puntaje, contador_estados))
-    
+
     # Ordenar el ranking por puntaje (de mayor a menor)
     ranking.sort(key=lambda x: x[1], reverse=True)
 

@@ -14,26 +14,34 @@
   <body>
     <div class="outer-box">
       <div class="inner-box">
-        <img src="{% static 'images/hay_pan.png' %}" style="max-width: 200px;" />
+        <img src="{% static 'images/hay_pan.png' %}" style="max-width: 200px; center:" />
         <div class="form-box">
           <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Ingresar</button>
-            <button type="button" class="btn btn-secondary" id="cancelButton">Cancelar</button>
+            <div class="boton">
+              <button type="submit" class="btn btn-primary">Ingresar</button>
+              <button type="button" class="btn btn-secondary" id="cancelButton">Cancelar</button>
+            </div>
             <hr />
-            <a href="{% url 'registro' %}" class="btn-link">registrar</a>
+            <a href="{% url 'registro' %}" class="btn-link">Registrar</a>
           </form>
         </div>
-        {% if error %}
-          <div div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
         {% endif %}
       </div>
     </div>
     <script>
-      document.getElementById('cancelButton').addEventListener('click', function () {
-        window.location.href = "{% url 'login' %}"
-      })
+      document.addEventListener('DOMContentLoaded', function () {
+          document.getElementById('cancelButton').addEventListener('click', function () {
+              window.location.href = "{% url 'login' %}"
+          });
+      });
     </script>
   </body>
 </html>
